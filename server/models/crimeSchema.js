@@ -2,44 +2,41 @@ import mongoose from "mongoose";
 
 const crimeSchema = new mongoose.Schema({
     title:{
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
     description:{
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
     location:{
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
     date:{
-        type:Date,
-        required:true,
-    },
-    suspect:{
-        type:String,
-        required:true,
+        type: Date,
+        required: true,
     },
     status:{
-        type:String,
-        enum:["pending","solved"],
-        default:"pending",
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
+        type: String,
+        enum: ["pending","solved"],
+        default: "pending",
     },
     uplodedBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     },
     images:[{
-        type:String,
+        fileUrl: {
+            type: String
+        },
+        fileType: {
+            type: String
+        }
     }],
     video:{
-        type:String,
+        type: String,
     },
     
 },{timestamps:true})
