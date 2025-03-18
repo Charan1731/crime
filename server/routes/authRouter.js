@@ -14,4 +14,10 @@ authRouter.get("/protected", verifyToken, (req, res) => {
     })
 })
 
+authRouter.get("/me", verifyToken, (req, res) => {
+    res.status(200).json({
+        success:true,
+        message:"Me route",
+    })
+})
 export default authRouter;

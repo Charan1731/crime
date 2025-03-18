@@ -8,7 +8,7 @@ export const createCrime = async (req, res) => {
         // Process uploaded files
         const mediaFiles = req.files.map(file => ({
             fileUrl: file.location,
-            fileType: file.mimetype.startsWith('image/') ? 'image' : 'video'
+            fileType: file.mimetype  // Store the full MIME type instead of just 'image' or 'video'
         }));
 
         const crime = new Crime({
