@@ -6,18 +6,30 @@ export const createCrime = async (req, res) => {
         const { title, description, location, date } = req.body;
         
         // Process uploaded files
-        const mediaFiles = req.files.map(file => ({
-            fileUrl: file.location,
-            fileType: file.mimetype  // Store the full MIME type instead of just 'image' or 'video'
-        }));
+        const images = [];
+        let video = null;
+        
+        if (req.files && req.files.length > 0) {
+            req.files.forEach(file => {
+                if (file.mimetype.startsWith('image/')) {
+                    images.push({
+                        fileUrl: file.location,
+                        fileType: file.mimetype
+                    });
+                } else if (file.mimetype.startsWith('video/')) {
+                    video = file.location;
+                }
+            });
+        }
 
         const crime = new Crime({
             title,
             description,
             location,
             date,
-            uplodedBy:req.user._id,
-            images:mediaFiles,
+            uplodedBy: req.user._id,
+            images: images,
+            video: video
         });
 
         await crime.save();
@@ -103,13 +115,29 @@ export const updateCrime = async (req, res) => {
         
         // Process new uploaded files if any
         if (req.files && req.files.length > 0) {
-            const newMediaFiles = req.files.map(file => ({
-                fileUrl: file.location,
-                fileType: file.mimetype
-            }));
+            const newImages = [];
+            let newVideo = null;
             
-            // Add new media files to existing ones
-            updateData.images = [...existingCrime.images, ...newMediaFiles];
+            req.files.forEach(file => {
+                if (file.mimetype.startsWith('image/')) {
+                    newImages.push({
+                        fileUrl: file.location,
+                        fileType: file.mimetype
+                    });
+                } else if (file.mimetype.startsWith('video/')) {
+                    newVideo = file.location;
+                }
+            });
+            
+            // Add new images to existing ones
+            if (newImages.length > 0) {
+                updateData.images = [...existingCrime.images, ...newImages];
+            }
+            
+            // Update video if a new one was uploaded
+            if (newVideo) {
+                updateData.video = newVideo;
+            }
         }
         
         // Update the crime with the new data
