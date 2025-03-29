@@ -11,8 +11,11 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: ['http://localhost:5174', 'http://localhost:3000'],
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Authorization']
 }));
 
 app.use('/api/v1/auth', authRouter);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
+import { Lock, Mail, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
@@ -10,12 +10,15 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
+    
     try {
       await login(email, password);
       if (rememberMe) {
@@ -24,8 +27,10 @@ const SignIn = () => {
         localStorage.removeItem('rememberedEmail');
       }
       navigate('/dashboard');
-    } catch (error) {
+    } catch (error: any) {
+      // Error is already shown by toast in AuthContext
       console.error('Login failed:', error);
+      setError('Sign in failed. Please check your credentials and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -41,6 +46,13 @@ const SignIn = () => {
       >
         <h2 className="text-3xl font-bold text-center mb-8">Welcome Back</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && (
+            <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 flex items-start">
+              <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" />
+              <span className="text-sm text-red-200">{error}</span>
+            </div>
+          )}
+          
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-300">Email</label>
             <div className="relative">

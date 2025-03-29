@@ -2,7 +2,6 @@ export interface User {
   _id: string;
   email: string;
   name: string;
-  role: 'user' | 'admin';
 }
 
 export interface Crime {
@@ -11,12 +10,13 @@ export interface Crime {
   description: string;
   location: string;
   date: string;
-  status: 'pending' | 'investigating' | 'resolved' | 'rejected';
-  reportedBy: string;
-  mediaFiles: Array<{
-    url: string;
-    type: string;
+  status: 'pending' | 'solved';
+  uplodedBy: string;
+  images: Array<{
+    fileUrl: string;
+    fileType: string;
   }>;
+  video?: string;
   createdAt: string;
   updatedAt: string;
 }

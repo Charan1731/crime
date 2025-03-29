@@ -12,7 +12,6 @@ const AdminLogin = () => {
   const { adminLogin } = useAuth();
 
   useEffect(() => {
-    // Initialize refs array
     inputRefs.current = inputRefs.current.slice(0, 6);
   }, []);
 
@@ -24,9 +23,8 @@ const AdminLogin = () => {
     setIsLoading(true);
     try {
       await adminLogin(fullCode);
-      navigate('/admin-dashboard');
+      navigate('/view-crimes');
     } catch (error) {
-      // Reset code on error
       setCode(['', '', '', '', '', '']);
       inputRefs.current[0]?.focus();
     } finally {
@@ -35,7 +33,7 @@ const AdminLogin = () => {
   };
 
   const handleInput = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return; // Only allow digits
+    if (!/^\d*$/.test(value)) return;
 
     const newCode = [...code];
     newCode[index] = value;

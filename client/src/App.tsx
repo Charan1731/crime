@@ -8,53 +8,57 @@ import SignUp from './pages/SignUp';
 import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
-import CrimeReport from './pages/CrimeReport';
-import CrimeDetails from './pages/CrimeDetails';
+import ReportCrime from './pages/ReportCrime';
+import ViewCrimes from './pages/ViewCrimes';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen bg-black text-white">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <UserDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin-dashboard"
-              element={
-                <ProtectedRoute adminOnly>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/report-crime"
-              element={
-                <ProtectedRoute>
-                  <CrimeReport />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/crime/:id"
-              element={
-                <ProtectedRoute>
-                  <CrimeDetails />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+          <Navbar />
+          <div className="pt-16">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <UserDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/report-crime"
+                element={
+                  <ProtectedRoute>
+                    <ReportCrime />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin-dashboard"
+                element={
+                  <ProtectedRoute adminOnly>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/view-crimes"
+                element={
+                  <ProtectedRoute adminOnly>
+                    <ViewCrimes />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </div>
           <Toaster position="top-right" />
         </div>
       </Router>
