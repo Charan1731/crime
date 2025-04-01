@@ -21,17 +21,13 @@ const Navbar: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Shield className="w-6 h-6 text-blue-500" />
-            <span className="font-bold text-xl">CrimeReport</span>
+            <Shield className="w-6 h-6 text-blue-400" />
+            <span className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">CrimeReport</span>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
             {isAdmin ? (
               <>
-                {/* <NavLink to="/admin-dashboard" currentPath={location.pathname}>
-                  <User className="w-5 h-5 mr-1" />
-                  <span className="hidden md:inline">Dashboard</span>
-                </NavLink> */}
                 <NavLink to="/view-crimes" currentPath={location.pathname}>
                   <List className="w-5 h-5 mr-1" />
                   <span className="hidden md:inline">View Crimes</span>
@@ -51,7 +47,7 @@ const Navbar: React.FC = () => {
             )}
             <button
               onClick={handleLogout}
-              className="flex items-center px-3 py-1.5 text-sm bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+              className="flex items-center px-3 py-1.5 text-sm text-red-600 bg-red-300 hover:bg-red-400 rounded-lg transition-colors"
             >
               <LogOut className="w-4 h-4 mr-1" />
               <span className="hidden md:inline">Logout</span>
@@ -77,7 +73,7 @@ const NavLink: React.FC<NavLinkProps> = ({ to, currentPath, children }) => {
       to={to}
       className={`flex items-center px-3 py-1.5 text-sm rounded-lg transition-colors ${
         isActive 
-          ? 'bg-blue-600 text-white' 
+          ? 'bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-white' 
           : 'hover:bg-white/10'
       }`}
     >

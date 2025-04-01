@@ -199,20 +199,13 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Welcome, {user?.name}</h1>
-          {/* <button
-            onClick={handleLogout}
-            className="flex items-center px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
-          >
-            <LogOut className="w-5 h-5 mr-2" />
-            Logout
-          </button> */}
+          <h1 className="text-3xl font-bold"><span className='text-blue-400'>Welcome,</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">{user?.name}</span></h1>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={navigateToReportCrime}
-          className="w-full mb-8 p-4 bg-blue-600 rounded-xl flex justify-center items-center hover:bg-blue-700 transition-colors"
+          className="w-full mb-8 p-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl flex justify-center items-center hover:bg-gradient-to-r hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-colors"
         >
           <FileText className="w-8 h-8 mb-2 mr-2" />
           <span className="text-xl font-semibold">Report New Crime</span>
@@ -316,7 +309,7 @@ const UserDashboard = () => {
         )}
 
         <div className="grid gap-6">
-          <h2 className="text-2xl font-semibold mb-4">Your Reports</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Your Reports</h2>
           {isLoading ? (
             <div className="text-center">Loading...</div>
           ) : crimes.length === 0 ? (
@@ -380,8 +373,6 @@ const UserDashboard = () => {
             ))
           )}
         </div>
-
-        {/* Crime Details Modal */}
         <AnimatePresence>
           {selectedCrime && (
             <motion.div
@@ -398,7 +389,6 @@ const UserDashboard = () => {
                 className="bg-gray-900 rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Modal Content */}
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
@@ -510,7 +500,6 @@ const UserDashboard = () => {
                     </div>
                   )}
 
-                  {/* Video evidence */}
                   {selectedCrime.video && (
                     <div className="my-6">
                       <h3 className="flex items-center text-lg font-semibold mb-3">
@@ -534,7 +523,6 @@ const UserDashboard = () => {
           )}
         </AnimatePresence>
 
-        {/* Delete Confirmation Modal */}
         <AnimatePresence>
           {showDeleteConfirm && (
             <motion.div
@@ -576,7 +564,6 @@ const UserDashboard = () => {
           )}
         </AnimatePresence>
 
-        {/* Fullscreen Image Modal */}
         <AnimatePresence>
           {activeImage && (
             <motion.div

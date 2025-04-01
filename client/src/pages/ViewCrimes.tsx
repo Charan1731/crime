@@ -81,16 +81,7 @@ const ViewCrimes = () => {
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Crime Reports</h1>
-          {/* <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 p-2 text-gray-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Dashboard</span>
-          </motion.button> */}
+          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Crime Reports</h1>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -98,21 +89,21 @@ const ViewCrimes = () => {
             whileHover={{ scale: 1.02 }}
             className="p-6 rounded-xl backdrop-blur-lg bg-white/5"
           >
-            <h3 className="text-xl font-semibold mb-2">Total Reports</h3>
-            <p className="text-4xl font-bold">{stats.total}</p>
+            <h3 className="text-xl font-semibold mb-2 text-blue-400">Total Reports</h3>
+            <p className="text-4xl font-bold text-blue-400">{stats.total}</p>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="p-6 rounded-xl backdrop-blur-lg bg-white/5"
           >
-            <h3 className="text-xl font-semibold mb-2">Pending</h3>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-500">Pending</h3>
             <p className="text-4xl font-bold text-yellow-500">{stats.pending}</p>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="p-6 rounded-xl backdrop-blur-lg bg-white/5"
           >
-            <h3 className="text-xl font-semibold mb-2">Solved</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-500">Solved</h3>
             <p className="text-4xl font-bold text-green-500">{stats.solved}</p>
           </motion.div>
         </div>

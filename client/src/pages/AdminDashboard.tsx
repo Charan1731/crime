@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             className="p-6 rounded-xl backdrop-blur-lg bg-white/5"
           >
             <h3 className="text-xl font-semibold mb-2">Total Reports</h3>
-            <p className="text-4xl font-bold">{stats.total}</p>
+            <p className="text-4xl font-bold text-blue-400">{stats.total}</p>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.02 }}
