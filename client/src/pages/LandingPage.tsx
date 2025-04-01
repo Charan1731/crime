@@ -9,20 +9,20 @@ const LandingPage = () => {
       <header className="py-6 px-8 flex items-center justify-between border-b border-gray-800/50 -mt-16">
         <div className="flex items-center">
           <Shield className="w-8 h-8 text-blue-500" />
-          <span className="ml-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+          <span className="ml-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
             CrimeReport
           </span>
         </div>
         <div className="space-x-4">
           <Link
             to="/signin"
-            className="px-4 py-2 text-blue-400 hover:text-blue-300 transition-colors"
+            className="px-2 py-2 text-blue-300 hover:text-blue-200 transition-colors"
           >
             Sign In
           </Link>
           <Link
             to="/signup"
-            className="px-4 py-2 bg-blue-600/20 border border-blue-500/30 rounded-lg hover:bg-blue-600/30 transition-all"
+            className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-purple-500/20"
           >
             Get Started
           </Link>
@@ -36,7 +36,7 @@ const LandingPage = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-4xl mx-auto mb-16"
         >
-          <h1 className="text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-300 to-indigo-400">
+          <h1 className="text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
             Crime Reporting System
           </h1>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
@@ -46,7 +46,7 @@ const LandingPage = () => {
           <div className="flex justify-center gap-6 flex-col sm:flex-row">
             <Link
               to="/signin"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition duration-300 shadow-lg shadow-blue-700/20 flex items-center justify-center"
+              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-purple-500/20 hover:from-blue-700 hover:to-indigo-700 transition duration-300 shadow-lg flex items-center justify-center"
             >
               <span>Sign In</span>
               <ArrowRight className="w-5 h-5 ml-2" />
