@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { User, Mail, Lock, Eye, EyeOff, Shield, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -14,6 +15,7 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { showToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,16 +23,19 @@ const SignUp = () => {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      showToast('Passwords do not match', 'error');
       return;
     }
 
     setIsLoading(true);
     try {
       await register(name, email, password);
+      showToast('Registration successful!', 'success');
       navigate('/dashboard');
     } catch (error) {
       console.error('Registration failed:', error);
       setError('Registration failed. Please try again.');
+      showToast('Registration failed. Please try again.', 'error');
     } finally {
       setIsLoading(false);
     }

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, CheckCircle, Search, LogOut, Filter, List, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import { Crime } from '../types';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 const AdminDashboard = () => {
   const [crimes, setCrimes] = useState<Crime[]>([]);
@@ -14,6 +14,7 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'solved'>('all');
   const { logout } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const AdminDashboard = () => {
       const response = await axios.get('http://localhost:5500/api/v1/crimes');
       setCrimes(response.data.crimes);
     } catch (error) {
-      toast.error('Failed to fetch reports');
+      showToast('Failed to fetch reports', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -34,10 +35,10 @@ const AdminDashboard = () => {
   const handleStatusUpdate = async (crimeId: string, newStatus: 'pending' | 'solved') => {
     try {
       await axios.put(`http://localhost:5500/api/v1/crimes/status/${crimeId}`, { status: newStatus });
-      toast.success('Status updated successfully');
+      showToast('Status updated successfully', 'success');
       fetchAllCrimes();
     } catch (error) {
-      toast.error('Failed to update status');
+      showToast('Failed to update status', 'error');
     }
   };
 

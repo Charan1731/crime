@@ -5,7 +5,7 @@ import { Crime } from '../types';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import { useToast } from '../context/ToastContext';
 
 const ViewCrimes = () => {
   const [crimes, setCrimes] = useState<Crime[]>([]);
@@ -15,6 +15,7 @@ const ViewCrimes = () => {
   const [sortBy, setSortBy] = useState<'date' | 'status'>('date');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [selectedCrime, setSelectedCrime] = useState<Crime | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
@@ -27,7 +28,7 @@ const ViewCrimes = () => {
       const response = await axios.get('http://localhost:5500/api/v1/crimes');
       setCrimes(response.data.crimes);
     } catch (error) {
-      toast.error('Failed to fetch reports');
+      showToast('Failed to fetch reports', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -36,10 +37,10 @@ const ViewCrimes = () => {
   const handleStatusUpdate = async (crimeId: string, newStatus: 'pending' | 'solved') => {
     try {
       await axios.put(`http://localhost:5500/api/v1/crimes/status/${crimeId}`, { status: newStatus });
-      toast.success('Status updated successfully');
+      showToast('Status updated successfully', 'success');
       fetchAllCrimes();
     } catch (error) {
-      toast.error('Failed to update status');
+      showToast('Failed to update status', 'error');
     }
   };
 
@@ -172,7 +173,7 @@ const ViewCrimes = () => {
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold">{crime.title}</h3>
+                      <h3 className="text-xl font-semibold text-blue-400 ">{crime.title}</h3>
                       {crime.status === 'pending' ? (
                         <span className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-sm">
                           Pending
@@ -249,7 +250,7 @@ const ViewCrimes = () => {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
-                      <h2 className="text-2xl font-bold">{selectedCrime.title}</h2>
+                      <h2 className="text-2xl font-bold text-blue-400">{selectedCrime.title}</h2>
                       <div className="flex items-center gap-3 mt-2">
                         {selectedCrime.status === 'pending' ? (
                           <span className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-sm">
@@ -267,7 +268,7 @@ const ViewCrimes = () => {
                     </div>
                     <button 
                       onClick={closeCrimeDetails}
-                      className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                      className="p-2 hover:bg-red-700/50 rounded-full transition-colors"
                     >
                       <X className="w-6 h-6" />
                     </button>
@@ -298,7 +299,7 @@ const ViewCrimes = () => {
                   </div>
 
                   <div className="my-6">
-                    <h3 className="flex items-center text-lg font-semibold mb-3">
+                    <h3 className="flex items-center text-lg font-semibold mb-3 text-blue-400">
                       <FileText className="w-5 h-5 mr-2" />
                       Description
                     </h3>
@@ -308,7 +309,7 @@ const ViewCrimes = () => {
                   {/* Evidence/Media Section */}
                   {selectedCrime.images && selectedCrime.images.length > 0 && (
                     <div className="my-6">
-                      <h3 className="flex items-center text-lg font-semibold mb-3">
+                      <h3 className="flex items-center text-lg font-semibold mb-3 text-blue-400">
                         <Image className="w-5 h-5 mr-2" />
                         Images
                       </h3>
@@ -336,7 +337,7 @@ const ViewCrimes = () => {
                   {/* Video evidence */}
                   {selectedCrime.video && (
                     <div className="my-6">
-                      <h3 className="flex items-center text-lg font-semibold mb-3">
+                      <h3 className="flex items-center text-lg font-semibold mb-3 text-blue-400">
                         <Video className="w-5 h-5 mr-2" />
                         Video
                       </h3>

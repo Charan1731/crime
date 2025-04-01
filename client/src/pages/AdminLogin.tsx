@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const AdminLogin = () => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
@@ -10,6 +11,7 @@ const AdminLogin = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const navigate = useNavigate();
   const { adminLogin } = useAuth();
+  const { showToast } = useToast();
 
   useEffect(() => {
     inputRefs.current = inputRefs.current.slice(0, 6);
@@ -23,8 +25,10 @@ const AdminLogin = () => {
     setIsLoading(true);
     try {
       await adminLogin(fullCode);
+      showToast('Admin login successful!', 'success');
       navigate('/view-crimes');
     } catch (error) {
+      showToast('Invalid admin code', 'error');
       setCode(['', '', '', '', '', '']);
       inputRefs.current[0]?.focus();
     } finally {

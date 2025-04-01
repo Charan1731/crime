@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
             )}
             <button
               onClick={handleLogout}
-              className="flex items-center px-3 py-1.5 text-sm text-red-600 bg-red-300 hover:bg-red-400 rounded-lg transition-colors"
+              className="flex items-center px-3 py-1.5 text-sm bg-gradient-to-r from-red-500 to-orange-500 rounded-lg transition-colors"
             >
               <LogOut className="w-4 h-4 mr-1" />
               <span className="hidden md:inline">Logout</span>

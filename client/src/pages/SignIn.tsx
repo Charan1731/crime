@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, Mail, Eye, EyeOff, AlertCircle, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { showToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +28,12 @@ const SignIn = () => {
       } else {
         localStorage.removeItem('rememberedEmail');
       }
+      showToast('Login successful!', 'success');
       navigate('/dashboard');
     } catch (error: any) {
       console.error('Login failed:', error);
       setError('Sign in failed. Please check your credentials and try again.');
+      showToast('Authentication failed. Please check your credentials.', 'error');
     } finally {
       setIsLoading(false);
     }

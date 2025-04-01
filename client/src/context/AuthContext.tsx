@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContextType, User } from '../types';
-import toast from 'react-hot-toast';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:5500';
@@ -16,10 +15,37 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+// We need to make the AuthProvider accept toast functions as props for proper dependency injection
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [toastFunction, setToastFunction] = useState<any>(null);
+
+  // Get toast function reference from ToastContext after initial render
+  useEffect(() => {
+    const getToastFn = async () => {
+      // This is a workaround since we can't use useToast() directly at component level
+      // We'll set the toast function after the first render when it's available
+      try {
+        const ToastContext = (await import('./ToastContext')).default;
+        const useToast = (await import('./ToastContext')).useToast;
+        // We're not actually using this function, just setting a reference for later
+        setToastFunction({
+          showSuccess: (message: string) => console.log('Toast success:', message),
+          showError: (message: string) => console.log('Toast error:', message)
+        });
+      } catch (err) {
+        console.error('Failed to load toast context', err);
+      }
+    };
+    
+    getToastFn();
+  }, []);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -62,37 +88,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { token, user: userData } = response.data;
       
       if (!token || !userData) {
-        toast.error('Invalid response from server');
         throw new Error('Invalid response from server');
       }
-      
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       
-
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;      
 
       setUser(userData);
-      toast.success('Login successful!');
+      return { success: true };
     } catch (error: any) {
-
       console.error('Login error:', error);
       
+      let errorMessage = 'Authentication failed';
       if (error.response) {
-
-
-        const errorMessage = error.response.data?.message || 'Authentication failed';
-        toast.error(errorMessage);
+        errorMessage = error.response.data?.message || errorMessage;
       } else if (error.request) {
-
-        toast.error('No response from server. Please try again later.');
+        errorMessage = 'No response from server. Please try again later.';
       } else {
-
-        toast.error('Login failed: ' + error.message);
+        errorMessage = 'Login failed: ' + error.message;
       }
       
-      throw error;
+      throw new Error(errorMessage);
     }
   };
 
@@ -100,9 +118,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (code === '123456') {
       setIsAdmin(true);
       localStorage.setItem('isAdmin', 'true');
-      toast.success('Admin login successful!');
+      return { success: true, message: 'Admin login successful!' };
     } else {
-      toast.error('Invalid admin code');
       throw new Error('Invalid admin code');
     }
   };
@@ -122,15 +139,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
       setUser(userData);
-      toast.success('Registration successful!');
+      return { success: true };
     } catch (error: any) {
-
+      let errorMessage = 'Registration failed';
       if (error.response && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error('Registration failed');
+        errorMessage = error.response.data.message;
       }
-      throw error;
+      throw new Error(errorMessage);
     }
   };
 
@@ -141,7 +156,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
     setIsAdmin(false);
-    toast.success('Logged out successfully');
+    return { success: true };
   };
 
   if (isLoading) {
