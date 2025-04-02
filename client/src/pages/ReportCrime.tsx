@@ -35,7 +35,9 @@ const ReportCrime = () => {
   const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    if (e.target === dropAreaRef.current) {
+      setIsDragging(false);
+    }
   }, []);
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -49,13 +51,10 @@ const ReportCrime = () => {
   const processFiles = useCallback((files: File[]) => {
     const imageFiles = files.filter(file => file.type.startsWith('image/'));
     let videoFile = files.find(file => file.type.startsWith('video/'));
-    
-    // Don't replace existing video unless a new one is provided
     if (!videoFile && report.video) {
       videoFile = report.video;
     }
 
-    // Create preview URLs
     const newPreviews = [
       ...imageFiles.map(file => ({
         url: URL.createObjectURL(file),
@@ -99,7 +98,6 @@ const ReportCrime = () => {
     if (e.target.files && e.target.files.length > 0) {
       const files = Array.from(e.target.files);
       processFiles(files);
-      // Reset the input value so the same file can be uploaded again if needed
       e.target.value = '';
     }
   }, [processFiles]);
@@ -121,11 +119,8 @@ const ReportCrime = () => {
         video: null,
       }));
     } else if (fileToRemove.type === 'image') {
-      // Remove image
       URL.revokeObjectURL(fileToRemove.url);
-      // Find corresponding index in the images array
       const imageIndex = report.images.findIndex((img, i) => {
-        // Match by name and size since we don't have a direct reference
         const previewFile = previewUrls.filter(p => p.type === 'image')[i];
         return img.name === previewFile.name && img.size === previewFile.size;
       });
@@ -205,25 +200,29 @@ const ReportCrime = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-2">Incident Title</label>
-              <input
-                type="text"
-                value={report.title}
-                onChange={(e) => setReport({ ...report, title: e.target.value })}
-                className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                placeholder="Brief title describing the incident"
-                required
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  value={report.title}
+                  onChange={(e) => setReport({ ...report, title: e.target.value })}
+                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                  placeholder="Brief title describing the incident"
+                  required
+                />
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Description</label>
-              <textarea
-                value={report.description}
-                onChange={(e) => setReport({ ...report, description: e.target.value })}
-                className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors h-32"
-                placeholder="Provide detailed information about the incident"
-                required
-              />
+              <div className="relative">
+                <textarea
+                  value={report.description}
+                  onChange={(e) => setReport({ ...report, description: e.target.value })}
+                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent] h-32"
+                  placeholder="Provide detailed information about the incident"
+                  required
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -232,14 +231,16 @@ const ReportCrime = () => {
                   <MapPin className="w-4 h-4 inline-block mr-2" />
                   Location
                 </label>
-                <input
-                  type="text"
-                  value={report.location}
-                  onChange={(e) => setReport({ ...report, location: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                  placeholder="Enter incident location"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={report.location}
+                    onChange={(e) => setReport({ ...report, location: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    placeholder="Enter incident location"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
@@ -247,13 +248,15 @@ const ReportCrime = () => {
                   <Calendar className="w-4 h-4 inline-block mr-2" />
                   Date & Time
                 </label>
-                <input
-                  type="datetime-local"
-                  value={report.date}
-                  onChange={(e) => setReport({ ...report, date: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-gradient-to-r focus:from-blue-500 focus:via-purple-500 focus:to-pink-500 transition-colors"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type="datetime-local"
+                    value={report.date}
+                    onChange={(e) => setReport({ ...report, date: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
@@ -263,7 +266,6 @@ const ReportCrime = () => {
                 Evidence (Images/Video)
               </label>
               
-              {/* Hidden file input */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -273,7 +275,6 @@ const ReportCrime = () => {
                 className="hidden"
               />
               
-              {/* Dropzone area */}
               <div
                 ref={dropAreaRef}
                 onClick={openFileDialog}
@@ -281,10 +282,10 @@ const ReportCrime = () => {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                className={`relative h-40 border-2 border-dashed rounded-lg transition-all duration-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
+                className={`relative h-40 border-2 border-dashed rounded-lg transition-all duration-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
                   isDragging 
-                    ? 'border-blue-500/70 bg-blue-500/20' 
-                    : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:border-gray-500'
+                    ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] [border:2px_solid_transparent]' 
+                    : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] hover:[border:2px_solid_transparent]'
                 }`}
               >
                 <AnimatePresence>
@@ -317,77 +318,36 @@ const ReportCrime = () => {
               </div>
             </div>
 
-            {/* File previews */}
             {previewUrls.length > 0 && (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-300">Uploaded Evidence ({previewUrls.length})</h3>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      // Clear all previews
-                      previewUrls.forEach(file => URL.revokeObjectURL(file.url));
-                      setPreviewUrls([]);
-                      setReport(prev => ({
-                        ...prev,
-                        images: [],
-                        video: null
-                      }));
-                    }}
-                    className="text-xs flex items-center gap-1 text-red-400 hover:text-red-300"
-                  >
-                    <Trash2 className="w-3 h-3" /> Clear all
-                  </button>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-3">
-                  {previewUrls.map((file, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="relative flex items-center bg-white/10 rounded-lg p-3 group"
-                    >
-                      <div className="h-14 w-14 rounded-md bg-gray-700/70 flex items-center justify-center mr-3 overflow-hidden">
-                        {file.type === 'image' ? (
-                          <img 
-                            src={file.url} 
-                            alt={`Preview ${index}`}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : file.type === 'video' ? (
-                          <video 
-                            src={file.url}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <FileIcon className="h-6 w-6 text-gray-400" />
-                        )}
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-200 truncate">{file.name}</p>
-                        <div className="flex items-center text-xs text-gray-400 mt-1">
-                          {file.type === 'image' ? (
-                            <ImageIcon className="w-3 h-3 mr-1" />
-                          ) : (
-                            <Film className="w-3 h-3 mr-1" />
-                          )}
-                          <span>{file.type === 'image' ? 'Image' : 'Video'} • {formatFileSize(file.size)}</span>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {previewUrls.map((file, index) => (
+                  <div key={index} className="relative group">
+                    <div className="aspect-square rounded-lg overflow-hidden bg-white/10">
+                      {file.type === 'image' ? (
+                        <img
+                          src={file.url}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : file.type === 'video' ? (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Film className="w-8 h-8 text-gray-400" />
                         </div>
-                      </div>
-                      
-                      <button
-                        type="button"
-                        onClick={() => removeFile(index)}
-                        className="p-2 text-gray-400 hover:text-red-400 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </motion.div>
-                  ))}
-                </div>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FileIcon className="w-8 h-8 text-gray-400" />
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFile(index)}
+                      className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-4 h-4 text-white" />
+                    </button>
+                  </div>
+                ))}
               </div>
             )}
 
@@ -406,16 +366,19 @@ const ReportCrime = () => {
                 disabled={isLoading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg hover:bg-gradient-to-r hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden"
               >
-                {isLoading ? (
-                  <span className="flex items-center">
-                    <Loader className="w-4 h-4 mr-2 animate-spin" />
-                    Submitting...
-                  </span>
-                ) : (
-                  'Submit Report'
-                )}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="relative">
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      <Loader className="w-4 h-4 mr-2 animate-spin" />
+                      Submitting...
+                    </span>
+                  ) : (
+                    'Submit Report'
+                  )}
+                </span>
               </motion.button>
             </div>
           </form>

@@ -351,64 +351,52 @@ const UserDashboard = () => {
             <form onSubmit={handleSubmitReport} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Title</label>
-                <div className="relative group">
+                <div className="relative">
                   <input
                     type="text"
                     value={newReport.title}
                     onChange={(e) => setNewReport({ ...newReport, title: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-transparent focus:z-10 group-focus-within:bg-white/10 transition-all peer"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
                     required
                   />
-                  <div className="absolute inset-0 rounded-lg opacity-0 peer-focus:opacity-100 transition-all duration-300 pointer-events-none bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-[1.5px]">
-                    <div className="h-full w-full bg-black rounded-[7px]"></div>
-                  </div>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Description</label>
-                <div className="relative group">
+                <div className="relative">
                   <textarea
                     value={newReport.description}
                     onChange={(e) => setNewReport({ ...newReport, description: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-transparent focus:z-10 group-focus-within:bg-white/10 transition-all peer h-32"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent] h-32"
                     required
                   />
-                  <div className="absolute inset-0 rounded-lg opacity-0 peer-focus:opacity-100 transition-all duration-300 pointer-events-none bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-[1.5px]">
-                    <div className="h-full w-full bg-black rounded-[7px]"></div>
-                  </div>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Location</label>
-                <div className="relative group">
+                <div className="relative">
                   <input
                     type="text"
                     value={newReport.location}
                     onChange={(e) => setNewReport({ ...newReport, location: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-transparent focus:z-10 group-focus-within:bg-white/10 transition-all peer"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
                     required
                   />
-                  <div className="absolute inset-0 rounded-lg opacity-0 peer-focus:opacity-100 transition-all duration-300 pointer-events-none bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-[1.5px]">
-                    <div className="h-full w-full bg-black rounded-[7px]"></div>
-                  </div>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Date</label>
-                <div className="relative group">
+                <div className="relative">
                   <input
                     type="datetime-local"
                     value={newReport.date}
                     onChange={(e) => setNewReport({ ...newReport, date: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:outline-none focus:border-transparent focus:z-10 group-focus-within:bg-white/10 transition-all peer"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
                     required
                   />
-                  <div className="absolute inset-0 rounded-lg opacity-0 peer-focus:opacity-100 transition-all duration-300 pointer-events-none bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-[1.5px]">
-                    <div className="h-full w-full bg-black rounded-[7px]"></div>
-                  </div>
                 </div>
               </div>
 
@@ -417,7 +405,6 @@ const UserDashboard = () => {
                   Media Files {isEditMode && '(New files will be added to existing ones)'}
                 </label>
                 
-                {/* Hidden file input */}
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -427,7 +414,6 @@ const UserDashboard = () => {
                   className="hidden"
                 />
                 
-                {/* Dropzone area */}
                 <div
                   ref={dropAreaRef}
                   onClick={openFileDialog}
@@ -435,22 +421,19 @@ const UserDashboard = () => {
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
-                  className={`relative border-2 border-dashed rounded-lg transition-all duration-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden h-32 ${
+                  className={`relative h-40 border-2 border-dashed rounded-lg transition-all duration-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
                     isDragging 
-                      ? 'border-transparent shadow-[0_0_15px_rgba(59,130,246,0.5)]' 
-                      : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:border-gray-500 hover:shadow-lg'
+                      ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] [border:2px_solid_transparent]' 
+                      : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] hover:[border:2px_solid_transparent]'
                   }`}
                 >
-                  {isDragging && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 z-0"></div>
-                  )}
                   <AnimatePresence>
                     {isDragging ? (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute inset-0 bg-blue-500/10 backdrop-blur-sm flex items-center justify-center z-10"
+                        className="absolute inset-0 bg-blue-500/10 backdrop-blur-sm flex items-center justify-center"
                       >
                         <div className="text-center">
                           <UploadCloud className="w-12 h-12 text-blue-500 mx-auto mb-2" />
@@ -462,11 +445,12 @@ const UserDashboard = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="text-center p-4 z-10 relative"
+                        className="text-center p-4"
                       >
-                        <UploadCloud className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <UploadCloud className="w-10 h-10 text-gray-400 mx-auto mb-2" />
                         <p className="text-gray-300 mb-1">Drag and drop files here</p>
-                        <p className="text-gray-400 text-xs">or click to browse</p>
+                        <p className="text-gray-400 text-sm">or click to browse</p>
+                        <p className="text-gray-500 text-xs mt-2">Supports images and videos</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -475,110 +459,55 @@ const UserDashboard = () => {
 
               {/* File previews */}
               {previewUrls.length > 0 && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-gray-300">New Files ({previewUrls.length})</h3>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        // Clear all previews
-                        previewUrls.forEach(file => URL.revokeObjectURL(file.url));
-                        setPreviewUrls([]);
-                        setNewReport(prev => ({
-                          ...prev,
-                          images: [],
-                          video: null
-                        }));
-                      }}
-                      className="text-xs flex items-center gap-1 text-red-400 hover:text-red-300"
-                    >
-                      <Trash2 className="w-3 h-3" /> Clear all
-                    </button>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 gap-2">
-                    {previewUrls.map((file, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="relative flex items-center bg-white/10 rounded-lg p-2 group"
-                      >
-                        <div className="h-12 w-12 rounded-md bg-gray-700/70 flex items-center justify-center mr-3 overflow-hidden">
-                          {file.type === 'image' ? (
-                            <img 
-                              src={file.url} 
-                              alt={`Preview ${index}`}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : file.type === 'video' ? (
-                            <video 
-                              src={file.url}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <FileIcon className="h-5 w-5 text-gray-400" />
-                          )}
-                        </div>
-                        
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-200 truncate">{file.name}</p>
-                          <div className="flex items-center text-xs text-gray-400">
-                            {file.type === 'image' ? (
-                              <ImageIcon className="w-3 h-3 mr-1" />
-                            ) : (
-                              <Film className="w-3 h-3 mr-1" />
-                            )}
-                            <span>{file.type === 'image' ? 'Image' : 'Video'} • {formatFileSize(file.size)}</span>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {previewUrls.map((file, index) => (
+                    <div key={index} className="relative group">
+                      <div className="aspect-square rounded-lg overflow-hidden bg-white/10">
+                        {file.type === 'image' ? (
+                          <img
+                            src={file.url}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : file.type === 'video' ? (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <Film className="w-8 h-8 text-gray-400" />
                           </div>
-                        </div>
-                        
-                        <button
-                          type="button"
-                          onClick={() => removeFile(index)}
-                          className="p-1 text-gray-400 hover:text-red-400 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </motion.div>
-                    ))}
-                  </div>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <FileIcon className="w-8 h-8 text-gray-400" />
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(index)}
+                        className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-4 h-4 text-white" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               )}
 
               {isEditMode && editingCrime && (
                 <div className="mb-2">
                   <h3 className="text-sm font-medium text-gray-300 mb-2">Current Media</h3>
-                  <div className="grid grid-cols-1 gap-2">
-                    {editingCrime.images && editingCrime.images.length > 0 && (
-                      <div className="p-2 bg-white/5 rounded-lg">
-                        <p className="text-xs text-gray-400 mb-2">{editingCrime.images.length} Image{editingCrime.images.length !== 1 ? 's' : ''}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {editingCrime.images.slice(0, 5).map((img, idx) => (
-                            <div key={idx} className="h-10 w-10 rounded-md bg-gray-700/70 overflow-hidden">
-                              <img 
-                                src={img.fileUrl} 
-                                alt={`Existing ${idx}`}
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                          ))}
-                          {editingCrime.images.length > 5 && (
-                            <div className="h-10 w-10 rounded-md bg-black/50 flex items-center justify-center text-xs text-gray-300">
-                              +{editingCrime.images.length - 5}
-                            </div>
-                          )}
-                        </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {editingCrime.images && editingCrime.images.length > 0 && editingCrime.images.map((img, idx) => (
+                      <div key={idx} className="relative group aspect-square rounded-lg overflow-hidden bg-white/10">
+                        <img 
+                          src={img.fileUrl} 
+                          alt={`Existing ${idx}`}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
-                    )}
+                    ))}
                     
                     {editingCrime.video && (
-                      <div className="p-2 bg-white/5 rounded-lg flex items-center">
-                        <div className="h-10 w-10 rounded-md bg-gray-700/70 flex items-center justify-center mr-3 overflow-hidden">
-                          <Video className="h-5 w-5 text-blue-400" />
-                        </div>
-                        <span className="text-xs text-gray-400">Video attached</span>
+                      <div className="aspect-square rounded-lg overflow-hidden bg-white/10 flex items-center justify-center">
+                        <Video className="w-8 h-8 text-blue-400" />
                       </div>
                     )}
                   </div>
@@ -587,28 +516,35 @@ const UserDashboard = () => {
 
               <div className="flex gap-4 justify-end">
                 {isEditMode && (
-                  <button
+                  <motion.button
                     type="button"
                     onClick={cancelEdit}
-                    className="py-3 px-4 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-6 py-3 bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
                   >
                     Cancel
-                  </button>
+                  </motion.button>
                 )}
-                <button
+                <motion.button
                   type="submit"
                   disabled={isLoading}
-                  className="py-3 px-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden"
                 >
-                  {isLoading ? (
-                    <span className="flex items-center justify-center">
-                      <Loader className="w-4 h-4 mr-2 animate-spin" />
-                      {isEditMode ? 'Updating...' : 'Submitting...'}
-                    </span>
-                  ) : (
-                    isEditMode ? 'Update Report' : 'Submit Report'
-                  )}
-                </button>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative">
+                    {isLoading ? (
+                      <span className="flex items-center">
+                        <Loader className="w-4 h-4 mr-2 animate-spin" />
+                        {isEditMode ? 'Updating...' : 'Submitting...'}
+                      </span>
+                    ) : (
+                      isEditMode ? 'Update Report' : 'Submit Report'
+                    )}
+                  </span>
+                </motion.button>
               </div>
             </form>
           </motion.div>
