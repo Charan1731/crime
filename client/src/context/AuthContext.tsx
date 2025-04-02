@@ -25,12 +25,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastFunction, setToastFunction] = useState<any>(null);
-
-  // Get toast function reference from ToastContext after initial render
   useEffect(() => {
     const getToastFn = async () => {
-      // This is a workaround since we can't use useToast() directly at component level
-      // We'll set the toast function after the first render when it's available
       try {
         const ToastContext = (await import('./ToastContext')).default;
         const useToast = (await import('./ToastContext')).useToast;

@@ -5,10 +5,7 @@ import { createCrime, getCrimes, getCrimeById, updateCrime, updateCrimeStatus, d
 
 const router = express.Router();
 
-// Public routes (if any)
 router.get('/', getCrimes);
-
-// Protected routes
 router.post('/', verifyToken, upload.array('mediaFiles', 5), createCrime);
 router.get('/:id', getCrimeById);
 router.put('/:id', verifyToken, upload.array('mediaFiles', 5), updateCrime);

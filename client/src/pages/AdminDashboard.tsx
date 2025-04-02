@@ -26,7 +26,7 @@ const AdminDashboard = () => {
       const response = await axios.get('http://localhost:5500/api/v1/crimes');
       setCrimes(response.data.crimes);
     } catch (error) {
-      showToast('Failed to fetch reports', 'error');
+      showToast('Failed to fetch reports', "error");
     } finally {
       setIsLoading(false);
     }

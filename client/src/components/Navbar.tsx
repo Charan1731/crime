@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Shield, FileText, List, LogOut, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 

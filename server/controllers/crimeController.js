@@ -5,7 +5,7 @@ export const createCrime = async (req, res) => {
     try {
         const { title, description, location, date } = req.body;
         
-        // Process uploaded files
+
         const images = [];
         let video = null;
         
@@ -97,7 +97,7 @@ export const updateCrime = async (req, res) => {
             });
         }
         
-        // Check if user owns this crime report
+
         if (existingCrime.uplodedBy.toString() !== req.user._id.toString()) {
             return res.status(403).json({
                 success: false,
@@ -105,7 +105,7 @@ export const updateCrime = async (req, res) => {
             });
         }
         
-        // Build update object
+
         const updateData = {
             title,
             description,
@@ -113,7 +113,7 @@ export const updateCrime = async (req, res) => {
             date
         };
         
-        // Process new uploaded files if any
+
         if (req.files && req.files.length > 0) {
             const newImages = [];
             let newVideo = null;
@@ -129,18 +129,18 @@ export const updateCrime = async (req, res) => {
                 }
             });
             
-            // Add new images to existing ones
+
             if (newImages.length > 0) {
                 updateData.images = [...existingCrime.images, ...newImages];
             }
             
-            // Update video if a new one was uploaded
+
             if (newVideo) {
                 updateData.video = newVideo;
             }
         }
         
-        // Update the crime with the new data
+
         const updatedCrime = await Crime.findByIdAndUpdate(
             id, 
             updateData, 
@@ -199,7 +199,7 @@ export const deleteCrime = async (req, res) => {
             });
         }
         
-        // Check if user owns this crime report
+
         if (existingCrime.uplodedBy.toString() !== req.user._id.toString()) {
             return res.status(403).json({
                 success: false,

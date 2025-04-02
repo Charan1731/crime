@@ -47,7 +47,6 @@ export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -55,7 +54,7 @@ export const signIn = async (req, res) => {
       });
     }
 
-    // Find user
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
@@ -64,7 +63,6 @@ export const signIn = async (req, res) => {
       });
     }
 
-    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -73,14 +71,12 @@ export const signIn = async (req, res) => {
       });
     }
 
-    // Generate token
     const token = jwt.sign(
       { userId: user._id },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
-    // Send response
     return res.status(200).json({
       success: true,
       message: "Login successful",
