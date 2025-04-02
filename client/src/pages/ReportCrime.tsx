@@ -175,6 +175,25 @@ const ReportCrime = () => {
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
+      <style>{`
+        @keyframes gradient-rotate {
+          0% {
+            background-position: 0% 0%;
+          }
+          25% {
+            background-position: 100% 0%;
+          }
+          50% {
+            background-position: 100% 100%;
+          }
+          75% {
+            background-position: 0% 100%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+        }
+      `}</style>
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -199,13 +218,13 @@ const ReportCrime = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium mb-2">Incident Title</label>
+              <label className="block text-sm text-blue-400 font-medium mb-2">Incident Title</label>
               <div className="relative">
                 <input
                   type="text"
                   value={report.title}
                   onChange={(e) => setReport({ ...report, title: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                   placeholder="Brief title describing the incident"
                   required
                 />
@@ -213,12 +232,12 @@ const ReportCrime = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Description</label>
+              <label className="block text-sm text-blue-400 font-medium mb-2">Description</label>
               <div className="relative">
                 <textarea
                   value={report.description}
                   onChange={(e) => setReport({ ...report, description: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent] h-32"
+                  className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%] h-32"
                   placeholder="Provide detailed information about the incident"
                   required
                 />
@@ -227,7 +246,7 @@ const ReportCrime = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm text-blue-400 font-medium mb-2">
                   <MapPin className="w-4 h-4 inline-block mr-2" />
                   Location
                 </label>
@@ -236,7 +255,7 @@ const ReportCrime = () => {
                     type="text"
                     value={report.location}
                     onChange={(e) => setReport({ ...report, location: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                     placeholder="Enter incident location"
                     required
                   />
@@ -244,7 +263,7 @@ const ReportCrime = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm text-blue-400 font-medium mb-2">
                   <Calendar className="w-4 h-4 inline-block mr-2" />
                   Date & Time
                 </label>
@@ -253,7 +272,7 @@ const ReportCrime = () => {
                     type="datetime-local"
                     value={report.date}
                     onChange={(e) => setReport({ ...report, date: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                     required
                   />
                 </div>
@@ -261,7 +280,7 @@ const ReportCrime = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm text-blue-400 font-medium mb-2">
                 <Camera className="w-4 h-4 inline-block mr-2" />
                 Evidence (Images/Video)
               </label>
@@ -284,8 +303,8 @@ const ReportCrime = () => {
                 onDrop={handleDrop}
                 className={`relative h-40 border-2 border-dashed rounded-lg transition-all duration-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
                   isDragging 
-                    ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] [border:2px_solid_transparent]' 
-                    : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] hover:[border:2px_solid_transparent]'
+                    ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] [border:2px_solid_transparent] [animation:gradient-rotate_3s_linear_infinite] [background-size:300%_300%]' 
+                    : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] hover:[border:2px_solid_transparent] hover:[animation:gradient-rotate_3s_linear_infinite] hover:[background-size:300%_300%]'
                 }`}
               >
                 <AnimatePresence>

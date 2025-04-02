@@ -317,6 +317,25 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
+      <style>{`
+        @keyframes gradient-rotate {
+          0% {
+            background-position: 0% 0%;
+          }
+          25% {
+            background-position: 100% 0%;
+          }
+          50% {
+            background-position: 100% 100%;
+          }
+          75% {
+            background-position: 0% 100%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+        }
+      `}</style>
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold"><span className='text-blue-400'>Welcome,</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">{user?.name}</span></h1>
@@ -356,7 +375,7 @@ const UserDashboard = () => {
                     type="text"
                     value={newReport.title}
                     onChange={(e) => setNewReport({ ...newReport, title: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                     required
                   />
                 </div>
@@ -368,7 +387,7 @@ const UserDashboard = () => {
                   <textarea
                     value={newReport.description}
                     onChange={(e) => setNewReport({ ...newReport, description: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent] h-32"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%] h-32"
                     required
                   />
                 </div>
@@ -381,7 +400,7 @@ const UserDashboard = () => {
                     type="text"
                     value={newReport.location}
                     onChange={(e) => setNewReport({ ...newReport, location: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                     required
                   />
                 </div>
@@ -394,7 +413,7 @@ const UserDashboard = () => {
                     type="datetime-local"
                     value={newReport.date}
                     onChange={(e) => setNewReport({ ...newReport, date: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] focus:[border:1px_solid_transparent]"
+                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg focus:outline-none transition-all duration-300 focus:border-transparent focus:ring-2 focus:ring-[#4F46E5] relative z-10 [background:linear-gradient(#000,#000)_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] focus:[border:1px_solid_transparent] focus:[animation:gradient-rotate_3s_linear_infinite] focus:[background-size:300%_300%]"
                     required
                   />
                 </div>
@@ -423,8 +442,8 @@ const UserDashboard = () => {
                   onDrop={handleDrop}
                   className={`relative h-40 border-2 border-dashed rounded-lg transition-all duration-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
                     isDragging 
-                      ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] [border:2px_solid_transparent]' 
-                      : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(to_right,#3B82F6,#9333EA,#EC4899)_border-box] hover:[border:2px_solid_transparent]'
+                      ? '[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] [border:2px_solid_transparent] [animation:gradient-rotate_3s_linear_infinite] [background-size:300%_300%]' 
+                      : 'border-gray-600 bg-white/5 hover:bg-white/10 hover:[background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8))_padding-box,linear-gradient(120deg,#3B82F6,#9333EA,#EC4899,#3B82F6)_border-box] hover:[border:2px_solid_transparent] hover:[animation:gradient-rotate_3s_linear_infinite] hover:[background-size:300%_300%]'
                   }`}
                 >
                   <AnimatePresence>
@@ -566,7 +585,7 @@ const UserDashboard = () => {
               >
                 <div className="flex justify-between">
                   <div className="cursor-pointer" onClick={() => openCrimeDetails(crime)}>
-                    <h3 className="text-xl font-semibold mb-2">{crime.title}</h3>
+                    <h3 className="text-xl text-blue-400 font-semibold mb-2">{crime.title}</h3>
                     <p className="text-gray-400 mb-4 line-clamp-2">{crime.description}</p>
                     <div className="flex items-center gap-4 text-sm text-gray-400">
                       <span>{crime.location}</span>
@@ -634,7 +653,7 @@ const UserDashboard = () => {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
-                      <h2 className="text-2xl font-bold">{selectedCrime.title}</h2>
+                      <h2 className="text-2xl text-blue-400 font-bold">{selectedCrime.title}</h2>
                       <div className="flex items-center gap-3 mt-2">
                         {selectedCrime.status === 'pending' ? (
                           <span className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-sm">
@@ -673,7 +692,7 @@ const UserDashboard = () => {
                       </button>
                       <button 
                         onClick={closeCrimeDetails}
-                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                        className="p-2 hover:bg-red-400/50 rounded-full transition-colors"
                       >
                         <X className="w-6 h-6" />
                       </button>
@@ -707,7 +726,7 @@ const UserDashboard = () => {
                   </div>
 
                   <div className="my-6">
-                    <h3 className="flex items-center text-lg font-semibold mb-3">
+                    <h3 className="flex items-center text-lg font-semibold text-blue-400 mb-3">
                       <FileText className="w-5 h-5 mr-2" />
                       Description
                     </h3>
@@ -717,7 +736,7 @@ const UserDashboard = () => {
                   {/* Evidence/Media Section */}
                   {selectedCrime.images && selectedCrime.images.length > 0 && (
                     <div className="my-6">
-                      <h3 className="flex items-center text-lg font-semibold mb-3">
+                      <h3 className="flex items-center text-lg text-blue-400 font-semibold mb-3">
                         <ImageIcon className="w-5 h-5 mr-2" />
                         Images
                       </h3>
@@ -744,7 +763,7 @@ const UserDashboard = () => {
 
                   {selectedCrime.video && (
                     <div className="my-6">
-                      <h3 className="flex items-center text-lg font-semibold mb-3">
+                      <h3 className="flex items-center text-lg text-blue-400 font-semibold mb-3">
                         <Video className="w-5 h-5 mr-2" />
                         Video
                       </h3>
