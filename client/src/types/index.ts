@@ -11,7 +11,7 @@ export interface Crime {
   location: string;
   date: string;
   status: 'pending' | 'solved';
-  uplodedBy: string;
+  uplodedBy: User;
   images: Array<{
     fileUrl: string;
     fileType: string;

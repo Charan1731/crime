@@ -19,7 +19,6 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-// We need to make the AuthProvider accept toast functions as props for proper dependency injection
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);

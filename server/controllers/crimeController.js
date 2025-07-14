@@ -43,7 +43,7 @@ export const createCrime = async (req, res) => {
 export const getCrimes = async (req, res) => {
     try {
 
-        const crimes = await Crime.find();
+        const crimes = await Crime.find().populate('uplodedBy','name');
 
         res.status(200).json({
             success: true,

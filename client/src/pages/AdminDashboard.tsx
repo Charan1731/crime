@@ -168,7 +168,7 @@ const AdminDashboard = () => {
                       </div>
                       <div>
                         <span className="text-gray-400">Reported by:</span>
-                        <p>{crime.uplodedBy}</p>
+                        <p>{crime.uplodedBy?.name}</p>
                       </div>
                     </div>
                   </div>
